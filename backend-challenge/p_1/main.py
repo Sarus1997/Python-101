@@ -10,4 +10,16 @@
 #  - input = [[59], [73, 41], [52, 40, 53], [26, 53, 6, 34]] output = 237
 #  - input = data/hard.json output = 7273
 
-# Convert triangle string into a list of lists of integers
+import json
+
+def find_max_path_sum(triangle):
+    dp = [row[:] for row in triangle]
+    for row in range(len(dp) - 2, -1, -1):
+        for col in range(len(dp[row])):
+            dp[row][col] += max(dp[row + 1][col], dp[row + 1][col + 1])
+    return dp[0][0]
+
+with open("data/hard.json", "r") as f:
+    data = json.load(f)
+
+print("Max path sum:", find_max_path_sum(data))
